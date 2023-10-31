@@ -1,0 +1,18 @@
+# https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[package]
+name = "bautils"
+description = "Bauke's Ad-hoc Utilities."
+repository = "https://github.com/Bauke/bautils"
+license = "AGPL-3.0-or-later"
+version = "0.1.0"
+authors = ["Bauke <me@bauke.xyz>"]
+edition = "2021"
+
+[[bin]]
+name = "bautils"
+path = "source/main.rs"
+
+[dependencies.clap]
+features = ["derive"]
+version = "4.4.7"
