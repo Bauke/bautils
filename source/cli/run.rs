@@ -26,14 +26,14 @@ pub fn run() {
       }
     },
 
-    Log { data_to_log } => {
+    Log { data_to_log, file } => {
       let log_line = format!(
         "{} {}",
         Utc::now().to_rfc3339_opts(SecondsFormat::Millis, true),
         data_to_log.join(" ")
       );
       println!("{}", log_line);
-      append_line_to_file("log.txt", &log_line).unwrap();
+      append_line_to_file(&file, &log_line).unwrap();
     }
   }
 }

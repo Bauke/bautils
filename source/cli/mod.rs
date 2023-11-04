@@ -31,6 +31,10 @@ pub enum MainSubcommand {
     /// The data to log.
     #[arg(last = true)]
     data_to_log: Vec<String>,
+
+    /// The file to log to, it will be created if it doesn't exist.
+    #[arg(short, long, default_value = "bautils.log")]
+    file: String,
   },
 }
 
