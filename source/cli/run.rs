@@ -2,7 +2,7 @@
 
 use {
   crate::{
-    cli::{Cli, MainSubcommand::*, Parser},
+    cli::{ArgumentsSubcommand, Cli, MainSubcommand::*, Parser},
     logging::append_line_to_file,
   },
   chrono::{SecondsFormat, Utc},
@@ -13,6 +13,19 @@ pub fn run() {
   let cli = Cli::parse();
 
   match cli.command {
+    Arguments {
+      command: arguments_subcommand,
+    } => match arguments_subcommand {
+      ArgumentsSubcommand::Count { arguments, newline } => {
+        let mut count = format!("{}", arguments.len());
+        if newline {
+          count.push('\n');
+        }
+
+        print!("{}", count);
+      }
+    },
+
     Log { data_to_log } => {
       let log_line = format!(
         "{} {}",
