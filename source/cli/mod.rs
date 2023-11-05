@@ -3,6 +3,7 @@
 pub use {
   crate::cli::run::run,
   clap::{Parser, Subcommand},
+  std::path::PathBuf,
 };
 
 mod run;
@@ -24,6 +25,13 @@ pub enum MainSubcommand {
     /// The arguments subcommands.
     #[command(subcommand)]
     command: ArgumentsSubcommand,
+  },
+
+  /// The file subcommand.
+  File {
+    /// The file subcommands.
+    #[command(subcommand)]
+    command: FileSubcommand,
   },
 
   /// The log subcommand.
@@ -50,5 +58,17 @@ pub enum ArgumentsSubcommand {
     /// Include a newline at the end of the number.
     #[arg(short, long, default_value = "false")]
     newline: bool,
+  },
+}
+
+/// The file subcommands
+#[derive(Debug, Subcommand)]
+pub enum FileSubcommand {
+  /// Check whether a file exists, if the file does not exist the exit code will
+  /// be 1.
+  Exists {
+    /// The path to a potential file.
+    #[arg()]
+    file: PathBuf,
   },
 }

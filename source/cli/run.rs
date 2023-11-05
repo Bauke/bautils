@@ -2,7 +2,9 @@
 
 use {
   crate::{
-    cli::{ArgumentsSubcommand, Cli, MainSubcommand::*, Parser},
+    cli::{
+      ArgumentsSubcommand, Cli, FileSubcommand, MainSubcommand::*, Parser,
+    },
     logging::append_line_to_file,
   },
   chrono::{SecondsFormat, Utc},
@@ -23,6 +25,16 @@ pub fn run() {
         }
 
         print!("{}", count);
+      }
+    },
+
+    File {
+      command: file_subcommand,
+    } => match file_subcommand {
+      FileSubcommand::Exists { file } => {
+        if !file.exists() {
+          std::process::exit(1);
+        }
       }
     },
 
