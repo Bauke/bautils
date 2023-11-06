@@ -8,6 +8,7 @@ use {
     logging::append_line_to_file,
   },
   chrono::{SecondsFormat, Utc},
+  std::{ffi::OsStr, path::Path},
 };
 
 /// Parse the CLI arguments and execute them.
@@ -34,6 +35,34 @@ pub fn run() {
       FileSubcommand::Exists { file } => {
         if !file.exists() {
           std::process::exit(1);
+        }
+      }
+
+      FileSubcommand::Parts {
+        basename,
+        directory,
+        extension,
+        file,
+      } => {
+        if basename {
+          print!(
+            "{}",
+            file.file_stem().and_then(OsStr::to_str).unwrap_or_default()
+          );
+        }
+
+        if directory {
+          print!(
+            "{}",
+            file.parent().and_then(Path::to_str).unwrap_or_default()
+          );
+        }
+
+        if extension {
+          print!(
+            "{}",
+            file.extension().and_then(OsStr::to_str).unwrap_or_default()
+          );
         }
       }
     },

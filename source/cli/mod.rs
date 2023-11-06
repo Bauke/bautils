@@ -71,4 +71,23 @@ pub enum FileSubcommand {
     #[arg()]
     file: PathBuf,
   },
+
+  /// Extract parts of a file.
+  Parts {
+    /// Print the base name of the file (without the extension).
+    #[arg(long, group = "part-to-print", default_value = "false")]
+    basename: bool,
+
+    /// Print the directory the file is in.
+    #[arg(long, group = "part-to-print", default_value = "false")]
+    directory: bool,
+
+    /// Print the file extension (without the leading dot).
+    #[arg(long, group = "part-to-print", default_value = "false")]
+    extension: bool,
+
+    /// The file to include parts from.
+    #[arg()]
+    file: PathBuf,
+  },
 }
