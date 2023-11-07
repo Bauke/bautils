@@ -33,7 +33,7 @@ pub fn run() {
       command: file_subcommand,
     } => match file_subcommand {
       FileSubcommand::Exists { file } => {
-        if !file.exists() {
+        if !(file.exists() && file.is_file()) {
           std::process::exit(1);
         }
       }
