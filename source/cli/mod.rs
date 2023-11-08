@@ -27,6 +27,13 @@ pub enum MainSubcommand {
     command: ArgumentsSubcommand,
   },
 
+  /// The directory subcommand.
+  Directory {
+    /// The directory subcommands.
+    #[command(subcommand)]
+    command: DirectorySubcommand,
+  },
+
   /// The file subcommand.
   File {
     /// The file subcommands.
@@ -61,7 +68,19 @@ pub enum ArgumentsSubcommand {
   },
 }
 
-/// The file subcommands
+/// The directory subcommands.
+#[derive(Debug, Subcommand)]
+pub enum DirectorySubcommand {
+  /// Check whether a directory exists, if the directory does not exist the exit
+  /// code will be 1.
+  Exists {
+    /// The path to a potential directory.
+    #[arg()]
+    directory: PathBuf,
+  },
+}
+
+/// The file subcommands.
 #[derive(Debug, Subcommand)]
 pub enum FileSubcommand {
   /// Check whether a file exists, if the file does not exist the exit code will

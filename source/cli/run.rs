@@ -3,7 +3,8 @@
 use {
   crate::{
     cli::{
-      ArgumentsSubcommand, Cli, FileSubcommand, MainSubcommand::*, Parser,
+      ArgumentsSubcommand, Cli, DirectorySubcommand, FileSubcommand,
+      MainSubcommand::*, Parser,
     },
     logging::append_line_to_file,
   },
@@ -26,6 +27,16 @@ pub fn run() {
         }
 
         print!("{}", count);
+      }
+    },
+
+    Directory {
+      command: directory_subcommand,
+    } => match directory_subcommand {
+      DirectorySubcommand::Exists { directory } => {
+        if !(directory.exists() && directory.is_dir()) {
+          std::process::exit(1);
+        }
       }
     },
 
