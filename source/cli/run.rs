@@ -4,7 +4,7 @@ use {
   crate::{
     cli::{
       ArgumentsSubcommand, Cli, DirectorySubcommand, FileSubcommand,
-      MainSubcommand::*, Parser,
+      MainSubcommand::*, MatchSubcommand, Parser,
     },
     logging::append_line_to_file,
   },
@@ -87,5 +87,16 @@ pub fn run() {
       println!("{}", log_line);
       append_line_to_file(&file, &log_line).unwrap();
     }
+
+    Match {
+      command: match_subcommand,
+    } => match match_subcommand {
+      MatchSubcommand::Regex { pattern, string } => {
+        let regex = regex::RegexBuilder::new(&pattern).build().unwrap();
+        if !regex.is_match(&string) {
+          std::process::exit(1);
+        }
+      }
+    },
   }
 }

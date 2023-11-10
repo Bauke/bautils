@@ -51,6 +51,13 @@ pub enum MainSubcommand {
     #[arg(short, long, default_value = "bautils.log")]
     file: String,
   },
+
+  /// The match subcommand.
+  Match {
+    /// The match subcommands.
+    #[command(subcommand)]
+    command: MatchSubcommand,
+  },
 }
 
 /// The arguments subcommands.
@@ -108,5 +115,22 @@ pub enum FileSubcommand {
     /// The file to include parts from.
     #[arg()]
     file: PathBuf,
+  },
+}
+
+/// The match subcommands.
+#[derive(Debug, Subcommand)]
+pub enum MatchSubcommand {
+  /// Match a given string to a regular expression pattern, if the pattern
+  /// matches the exit code will be 0, otherwise it will be 1. Regular
+  /// expression parsing failures will intentionally cause a panic.
+  Regex {
+    /// The regular expression to match with.
+    #[arg(short, long)]
+    pattern: String,
+
+    /// The string to test.
+    #[arg()]
+    string: String,
   },
 }
