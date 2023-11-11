@@ -8,7 +8,7 @@ use {
     },
     logging::append_line_to_file,
   },
-  chrono::{SecondsFormat, Utc},
+  chrono::{DateTime, Local, SecondsFormat, Utc},
   std::{ffi::OsStr, path::Path},
 };
 
@@ -46,6 +46,19 @@ pub fn run() {
       FileSubcommand::Exists { file } => {
         if !(file.exists() && file.is_file()) {
           std::process::exit(1);
+        }
+      }
+
+      FileSubcommand::Metadata {
+        date_format,
+        modified,
+        file,
+      } => {
+        let metadata = std::fs::metadata(file).unwrap();
+        if modified {
+          let date_modified =
+            DateTime::<Local>::from(metadata.modified().unwrap());
+          print!("{}", date_modified.format(&date_format));
         }
       }
 

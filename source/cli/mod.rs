@@ -98,6 +98,21 @@ pub enum FileSubcommand {
     file: PathBuf,
   },
 
+  /// Extract metadata of a file.
+  Metadata {
+    /// The chrono format string for dates, defaults to `%FT%T%z` (ISO 8601).
+    #[arg(long, default_value = "%FT%T%z")]
+    date_format: String,
+
+    /// Get the modified date (uses --date-format as the format string).
+    #[arg(long, default_value = "false")]
+    modified: bool,
+
+    /// The file to get the metadata of.
+    #[arg()]
+    file: PathBuf,
+  },
+
   /// Extract parts of a file.
   Parts {
     /// Print the base name of the file (without the extension).
