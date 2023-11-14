@@ -100,7 +100,7 @@ pub enum FileSubcommand {
 
   /// Extract metadata of a file.
   Metadata {
-    /// The chrono format string for dates, defaults to `%FT%T%z` (ISO 8601).
+    /// The chrono format string for dates, defaults to ISO 8601.
     #[arg(long, default_value = "%FT%T%z")]
     date_format: String,
 
