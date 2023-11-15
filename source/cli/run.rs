@@ -3,8 +3,8 @@
 use {
   crate::{
     cli::{
-      ArgumentsSubcommand, Cli, DirectorySubcommand, FileSubcommand,
-      MainSubcommand::*, MatchSubcommand, Parser,
+      ArgumentsSubcommand, Cli, DateSubcommand, DirectorySubcommand,
+      FileSubcommand, MainSubcommand::*, MatchSubcommand, Parser,
     },
     logging::append_line_to_file,
   },
@@ -27,6 +27,14 @@ pub fn run() {
         }
 
         print!("{}", count);
+      }
+    },
+
+    Date {
+      command: date_subcommand,
+    } => match date_subcommand {
+      DateSubcommand::Now { format } => {
+        print!("{}", Local::now().format(&format));
       }
     },
 

@@ -27,6 +27,13 @@ pub enum MainSubcommand {
     command: ArgumentsSubcommand,
   },
 
+  /// The date subcommand.
+  Date {
+    /// The date subcommands.
+    #[command(subcommand)]
+    command: DateSubcommand,
+  },
+
   /// The directory subcommand.
   Directory {
     /// The directory subcommands.
@@ -72,6 +79,17 @@ pub enum ArgumentsSubcommand {
     /// Include a newline at the end of the number.
     #[arg(short, long, default_value = "false")]
     newline: bool,
+  },
+}
+
+/// The date subcommands.
+#[derive(Debug, Subcommand)]
+pub enum DateSubcommand {
+  /// Gets the current date.
+  Now {
+    /// The format string for the date, defaults to ISO 8601.
+    #[arg(short, long, default_value = "%FT%T%z")]
+    format: String,
   },
 }
 
