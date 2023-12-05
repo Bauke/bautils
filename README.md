@@ -6,6 +6,12 @@
 
 ### Arguments
 
+```sh
+fruits=("apple" "banana" "coconut")
+bautils arguments count -- $fruits
+# Outputs: 3
+```
+
 ### Date
 
 ### Directory
